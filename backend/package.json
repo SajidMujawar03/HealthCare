@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for healthcare",
+  "main": "index.js",
+  "type":"module",
+
+  "scripts": {
+    "start":"node index.js"
+  },
+  "keywords": [
+    "healthcare",
+    "meicare"
+  ],
+  "author": "sajid mujawar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.5.3"
+  }
+}

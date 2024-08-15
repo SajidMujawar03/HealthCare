@@ -6,16 +6,17 @@ const DoctorCard = ({doctor}) => {
     const {name,specialization,avgRating,totalRating,photo,totalPatients,hospital}=doctor
   return (
     <>
-        <div className="p-3 lg:p-5">
+        <div className="p-3 flex items-center justify-center">
             <div>
-                <img src={photo} className='w-[400px] h-[400px] rounded-[20px]' alt="" />
+            <div>
+                <img src={photo} className='w-[300px] h-[300px] rounded-[20px]' alt="" />
             </div>
 
-            <h2 className='text-[18px] leading-[30px] lg:text-[26px] lg:leading-9 text-slate-800 font-700 mt-3 lg:mt-5'>
+            <h2 className='text-[18px] leading-[30px] lg:text-[26px] lg:leading-9 text-slate-800 font-700 mt-3'>
                 {name}
             </h2>
 
-            <div className="mt-2 lg:mt-4 flex items-center justify-between">
+            <div className="mt-2 flex items-center justify-between">
                 <span className="bg-[#CCF0F3] text-cyan-600 py-1 px-2 lg:py-2 lg:px-6 text-[12px] leading-4 lg:text-[16px] lg:leading-7 font-semibold rounded">
                     {specialization}
                 </span>
@@ -41,6 +42,7 @@ const DoctorCard = ({doctor}) => {
               <BsArrowRight className='group-hover:text-white'></BsArrowRight>
               </Link>
             </div>
+        </div>
         </div>
     </>
   )
