@@ -18,6 +18,7 @@ import {BsArrowRight} from "react-icons/bs"
 
 import About from '../components/About/About'
 import ServiceList from '../components/Services/serviceList.jsx'
+import DoctorsList from '../components/Doctors/DoctorsList.jsx'
 
 // import heroImg01 from "../assets/images/heroImg01.png"
 const Home = () => {
@@ -200,7 +201,11 @@ const Home = () => {
 
     <section>
       <div className="container">
-        
+        <div className="xl:w-[470px] mx-auto">
+          <h2 className="heading text-center ">Our Great Doctors</h2>
+          <p className="text_para text-center">World class care for everyone. Our health System offers unmatched, expert health care.</p>
+        </div>
+        <DoctorsList/>
       </div>
     </section>
     </>
