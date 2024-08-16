@@ -216,7 +216,7 @@ const Home = () => {
       <div className="container">
         <div className="flex justify-between gap-[50px] lg:gap-0">
           <div className="w-1/2 hidden md:block">
-            <img src={faqImg} className='w-auto h-[600px]' alt="" />
+            <img src={faqImg} className='w-auto h-[700px]' alt="" />
           </div>
 
           <div className='w-full md:w-1/2'>
@@ -229,6 +229,15 @@ const Home = () => {
       </div>
     </section>
 
+    
+    <section>
+      <div className="container">
+      <div className="xl:w-[470px] mx-auto">
+          <h2 className="heading text-center ">What our patient says</h2>
+          <p className="text_para text-center">World class care for everyone. Our health System offers unmatched, expert health care.</p>
+        </div>
+      </div>
+    </section>
     </>
   )
 }

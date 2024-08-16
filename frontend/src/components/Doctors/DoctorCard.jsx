@@ -7,7 +7,7 @@ const DoctorCard = ({doctor}) => {
   return (
     <>
         <div className="p-3 flex items-center justify-center">
-            <div>
+            <div className=''>
             <div>
                 <img src={photo} className='w-[300px] h-[300px] rounded-[20px]' alt="" />
             </div>
