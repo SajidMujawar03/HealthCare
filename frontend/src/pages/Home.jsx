@@ -22,6 +22,7 @@ import About from '../components/About/About'
 import ServiceList from '../components/Services/serviceList.jsx'
 import DoctorsList from '../components/Doctors/DoctorsList.jsx'
 import FaqList from '../components/Faq/FaqList.jsx'
+import Testimonial from '../components/Testimonial/Testimonial.jsx'
 
 // import heroImg01 from "../assets/images/heroImg01.png"
 const Home = () => {
@@ -216,7 +217,7 @@ const Home = () => {
       <div className="container">
         <div className="flex justify-between gap-[50px] lg:gap-0">
           <div className="w-1/2 hidden md:block">
-            <img src={faqImg} className='w-auto h-[700px]' alt="" />
+            <img src={faqImg} className='w-auto h-[700px] rounded-md' alt="" />
           </div>
 
           <div className='w-full md:w-1/2'>
@@ -236,6 +237,7 @@ const Home = () => {
           <h2 className="heading text-center ">What our patient says</h2>
           <p className="text_para text-center">World class care for everyone. Our health System offers unmatched, expert health care.</p>
         </div>
+        <Testimonial/>
       </div>
     </section>
     </>
