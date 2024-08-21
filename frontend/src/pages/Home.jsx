@@ -19,7 +19,7 @@ import {Link} from "react-router-dom"
 import {BsArrowRight} from "react-icons/bs"
 
 import About from '../components/About/About'
-import ServiceList from '../components/Services/serviceList.jsx'
+import ServiceList from '../components/Services/ServiceList.jsx'
 import DoctorsList from '../components/Doctors/DoctorsList.jsx'
 import FaqList from '../components/Faq/FaqList.jsx'
 import Testimonial from '../components/Testimonial/Testimonial.jsx'
