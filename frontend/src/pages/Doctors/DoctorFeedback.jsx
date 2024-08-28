@@ -1,7 +1,15 @@
-import React from 'react'
-import {avatar} from "../../assets/images/avatarIcon.jpg"
+import React, { useState } from 'react'
+import avatar from "../../assets/images/avatarIcon.png"
+import { formateDate } from '../../utils/formateDate'
+import {AiFillStar} from "react-icons/ai"
+import FeedbackForm from './FeedbackForm'
+
 
 const DoctorFeedback = () => {
+
+    const [showFeedbackForm,setShowFeedbackForm]=useState(false)
+
+
   return (
   <>
   <div className="mb-[50px]">
@@ -13,10 +21,38 @@ const DoctorFeedback = () => {
     <figure className='w-10 h-10 rounded-full'>
       <img src={avatar} alt="" className="" />
     </figure>
+
+    <div >
+        <h5 className='text-[16px] leading-6 text-blue-700 font-bold'>
+        Ali Ahmed
+        </h5>
+
+        <p className="text-[14px] leading-6 text-slate-600">
+          {formateDate('12-31-2024')}
+        </p>
+        <p className="text_para mt-3 font-medium text-[15px] ">Good Services  , highly recommended</p>
+    </div>
+
+  </div>
+
+  <div className="flex gap-1">
+    {
+      [...Array(5).keys()].map((_,index)=>(
+          <AiFillStar key={index} color="#0067ff"/>
+      ))
+    }
   </div>
 </div>
   </div>
+{!showFeedbackForm &&
+  <div className="text-center">
+    <button className="btn" onClick={()=>setShowFeedbackForm(true)}>Give Feedback</button>
+  </div>}
   
+  {
+    showFeedbackForm &&
+    <FeedbackForm/>
+  }
   
   
   </>
