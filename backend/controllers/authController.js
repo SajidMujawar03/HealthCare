@@ -5,20 +5,15 @@ import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken"
 
 
-
-
-
 const generateToken=(user)=>{
-  
     return jwt.sign({id:user._id,role:user.role},process.env.JWT_SECRET_KEY,{expiresIn:'1d'});
 }
+
+
 
 export const register=async(req,res)=>{
 
     const {name,email,password,role,photo,gender}=req.body;
-
-
-   
     try {
 
         let user=null
@@ -81,9 +76,15 @@ export const register=async(req,res)=>{
 
 
 export const login=async(req,res)=>{
+    
     const {email,password}=req.body;
-    // console.log(password);
+
+
+    
+    
+
     try {
+        // const {email,password}=req.body;
         let user=null;
         const patient=await User.findOne({email});
         const doctor=await User.findOne({email});
@@ -102,7 +103,7 @@ export const login=async(req,res)=>{
         }
         //compare password
         console.log(password)
-        const isPassword =await bcrypt(password,user.password)
+        const isPassword =await bcrypt.compare(password,user.password)
         if(!isPassword)
         {
             return res.status(400).json({status:false,message:"Invalid credentials..."})
