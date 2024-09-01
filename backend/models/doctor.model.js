@@ -68,4 +68,4 @@ const doctorSchema=mongoose.Schema({
     ],
 })
 
-export default Doctor=mongoose.model("Dpctor",doctorSchema);
+export const  Doctor=mongoose.model("Doctor",doctorSchema);
