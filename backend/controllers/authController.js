@@ -82,7 +82,7 @@ export const login = async (req, res) => {
 
         if (patient) {
             user = patient;
-            console.log(user)
+           
         } else if (doctor) {
             user = doctor;
         }

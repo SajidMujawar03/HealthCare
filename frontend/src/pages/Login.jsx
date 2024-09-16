@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { BASE_URL } from "../config.js"
 import { authContext } from "../context/AuthContext.jsx"
 import { toast } from "react-toastify"
+import HashLoader from "react-spinners/HashLoader.js"
 
 const Login = () => {
   
@@ -67,7 +68,7 @@ const Login = () => {
       setLoading(false)
       toast.success(result.message)
 
-      navigate('/home')
+      navigate('/')
       
     } catch (error) {
       
@@ -99,8 +100,9 @@ const Login = () => {
     <div className="mt-7">
       <button
       type="submit"
+      disabled={loading && true}
        className="w-full bg-blue-700 text-white text-[18px] leading-[30px] rounded-lg px-4 py-4">
-        Login
+        {loading ? <HashLoader color="#ffffff" size={35}/>:"Login"}
       </button>
     </div>
 

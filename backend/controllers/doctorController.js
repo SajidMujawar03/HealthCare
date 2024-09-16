@@ -63,3 +63,7 @@ export const getAllDoctors=async(req,res)=>{
         res.status(500).json({success:true,message:"Doctors not found"})
     }
 }
+
+export const getDoctorProfile=async(req,res)=>{
+    
+}
