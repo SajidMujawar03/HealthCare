@@ -1,3 +1,4 @@
+import { Booking } from "../models/booking.model.js";
 import { Doctor } from "../models/doctor.model.js";
 
 export const updateDoctor=async(req,res)=>{
@@ -65,5 +66,26 @@ export const getAllDoctors=async(req,res)=>{
 }
 
 export const getDoctorProfile=async(req,res)=>{
-    
+    const doctorId=req.userId;
+
+    try {
+
+        //find the doctor using doctorId
+        const doctor=await Doctor.findById(doctorId).select("-password");
+
+        if(!doctor)
+        {
+            return res.status(404).json({success:false,message:"Doctor Not Found..."});
+        }
+
+        const appointments=await Booking.find({doctor:doctorId})
+
+        res.status(200).json({success:true,message:"Doctor SuccessFully Found...",data:{doctor,appointments}})
+
+
+    } catch (error) {
+        return res.status(500).json({success:false,message:"Something went wrong..."});
+    }
 }
+
+
