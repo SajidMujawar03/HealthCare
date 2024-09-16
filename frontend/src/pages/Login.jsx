@@ -1,5 +1,8 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useContext, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { BASE_URL } from "../config.js"
+import { authContext } from "../context/AuthContext.jsx"
+import { toast } from "react-toastify"
 
 const Login = () => {
   
@@ -8,11 +11,71 @@ const Login = () => {
     password:'',
   })
 
+  const [loading,setLoading]=useState(false)
+  const {dispatch}=useContext(authContext)
+
+  const navigate=useNavigate()
+
   const handleInputChange=(e)=>{
       setFormData({
         ...formData,
         [e.target.name]:e.target.value,
   })
+  }
+
+  
+  const submitHandler=async (e)=>{
+  
+    
+    e.preventDefault()
+  
+    setLoading(true)
+
+    // console.log(formData)
+    
+    try {
+      const res =await fetch(`${BASE_URL}/auth/login`,
+        {method:'post',
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(formData),
+        }
+      )
+
+      const result=await res.json()
+      console.log(result.data,result.token,result.role)
+ 
+      // console.log(res.ok)
+      if(!res.ok)
+      {
+       
+        throw new Error(result.message || "something went wrong")
+      }
+
+        // console.log("hi")
+      dispatch({
+        type:"LOGIN_SUCCESS",
+        payload:{
+          user:result.data,
+          role:result.role,
+          token:result.token
+        }
+      })
+
+      console.log("hi")
+      setLoading(false)
+      toast.success(result.message)
+
+      navigate('/home')
+      
+    } catch (error) {
+      
+      toast.error(err.message)
+
+      setLoading(false)
+    }
+    
   }
 
 
@@ -25,7 +88,7 @@ const Login = () => {
     Hello! <span className="text-blue-800">Welcome</span> Back
   </h3>
 
-  <form action="" className="py-4 md:py-0">
+  <form action="" className="py-4 md:py-0" onSubmit={submitHandler}>
     <div className="mb-5">
       <input type="email" placeholder="Enter Your Email" name="email" value={formData.email} onChange={handleInputChange} className="w-full  py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-blue-700 text-[16px] leading-7 text-slate-900 placeholder:text-slate-600  cursor-pointer" required autoComplete="username"/>
     </div>

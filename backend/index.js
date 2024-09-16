@@ -6,6 +6,9 @@ import cors from "cors";
 
 //routes
 import authRoute from "./Routes/auth.js"
+import userRoute from "./Routes/user.js"
+import doctorRoute from "./Routes/doctor.js"
+import reviewRoute from "./Routes/review.js"
 
 //configure dotenv
 dotenv.config()
@@ -19,7 +22,7 @@ const port=process.env.PORT || 3000;
 //setting up cors 0ptions
 //configure cors behaviour
 const corsOptions={
-    origin:true,//allows any domain to access servers resources which is helpfulduring development
+    origin:true,//allows any domain to access servers resources which is helpful during development
 
 
 }
@@ -32,6 +35,8 @@ app.get('/',(req,res)=>{
 
 //Database connection
 mongoose.set('strictQuery',false)
+
+
 const connectDB=async ()=>{
     try {
        await  mongoose.connect(process.env.MONGO_URL,
@@ -49,12 +54,17 @@ const connectDB=async ()=>{
     }
 }
 
+
+
+
 //middleware
-app.use(express.json())//forparsing based on data
+app.use(express.json())//for parsing based on data
 app.use(cookieParser())
 app.use(cors(corsOptions))
 app.use("/api/v1/auth",authRoute)
-
+app.use("/api/v1/users",userRoute)
+app.use("/api/v1/doctors",doctorRoute)
+app.use("/api/v1/reviews",reviewRoute)
 
 
 app.listen(port,()=>{

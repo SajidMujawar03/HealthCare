@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
 import signupImg from '../assets/images/signupImg.jpg'
 import avatar from "../assets/images/doctor-img01.jpg"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { uploadImageToCLoudinary } from '../utils/uploadImageToCloudinary.js'
+import { BASE_URL } from '../config.js'
+import {toast} from 'react-toastify'
+import HashLoader from "react-spinners/HashLoader.js"
+
 
 const Signup = () => {
 
   const [selectedFile,setSelectedFile]=useState('')
   const [previewURL,setPreviewURL]=useState('')
+  const [loading,setLoading]=useState(false);
 
   const [formData,setFormData]=useState(
     {
@@ -19,6 +25,8 @@ const Signup = () => {
     }
   )
 
+  const navigate=useNavigate()
+
   const handleInputChange=(e)=>{
       setFormData({...formData,[e.target.name]:e.target.value})
   }
@@ -27,11 +35,57 @@ const Signup = () => {
   const handleFileInputChange=async (e)=>{
       const file =e.target.files[0]
 
-      console.log(file)
+
+        const data=await uploadImageToCLoudinary(file)
+      
+        setPreviewURL(data.url)
+
+        setSelectedFile(data.url)
+
+        setFormData({...formData,photo:data.url})
+        
+
   }
 
   const submitHandler=async (e)=>{
+  
+    
     e.preventDefault()
+  
+    setLoading(true)
+
+    console.log(formData)
+    
+    try {
+      const res =await fetch(`${BASE_URL}/auth/register`,
+        {method:'post',
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(formData),
+        }
+      )
+
+      const {message}=await res.json()
+   
+      console.log(res.ok)
+      if(!res.ok)
+      {
+        throw new Error(message)
+      }
+
+      setLoading(false)
+      toast.success(message)
+
+      navigate('/login')
+      
+    } catch (error) {
+      
+      toast.error(err.message)
+
+      setLoading(false)
+    }
+    
   }
 
   return (
@@ -114,9 +168,9 @@ const Signup = () => {
     </div>
 
     <div className="mb-5 flex items-center gap-3">
-      <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-blue-700 flex items-center justify-center">
-        <img src={avatar} alt="" className='w-full rounded-full'/>
-      </figure>
+  { selectedFile && <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-blue-700 flex items-center justify-center">
+    <img src={previewURL} alt="" className='w-full rounded-full'/>
+  </figure>}
 
       <div className='relative w-[130px] h-[50px]'>
         
@@ -142,9 +196,12 @@ const Signup = () => {
 
     <div className="mt-7">
       <button
+      disabled={loading && true}
       type="submit"
        className="w-full bg-blue-700 text-white text-[18px] leading-[30px] rounded-lg px-4 py-4">
-        Sign Up
+        {loading?
+        <HashLoader size={35} color="#ffffff"/>
+        :'Sign Up'}
       </button>
     </div>
 
